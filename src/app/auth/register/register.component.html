@@ -48,7 +48,7 @@
 
         <div class="form-group mt-3">
             <label for="role">Role</label>
-            <input id="role" formControlName="role" class="form-control"
+            <input readonly id="role" formControlName="role" class="form-control"
                 [ngClass]="{'is-invalid': role?.invalid && role?.touched}">
             <div *ngIf="role?.invalid && role?.touched" class="text-danger">
                 <small *ngIf="role?.errors?.['required']">Role is required.</small>

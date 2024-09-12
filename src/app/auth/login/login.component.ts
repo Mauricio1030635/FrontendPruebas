@@ -18,6 +18,11 @@ export class LoginComponent {
     private authService: AuthService,
     private router: Router
   ) {
+    const token = localStorage.getItem('token');
+    if (token) {
+      this.router.navigate(['/boards']);
+    }
+
     this.loginForm = this.fb.group({
       userName: ['', [Validators.required, Validators.minLength(4)]],
       password: ['', [Validators.required, Validators.minLength(6)]]
@@ -38,8 +43,9 @@ export class LoginComponent {
         this.isLoading = false;
         if (response.isSuccess) {
           localStorage.setItem('token', response.result.token);
+          localStorage.setItem('user', JSON.stringify(response.result.user));
           Swal.fire('Login', 'Login successful!', 'success');
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['/boards']);
         } else {
           Swal.fire('Error', response.message, 'error');
         }
@@ -65,4 +71,8 @@ export class LoginComponent {
   get password() {
     return this.loginForm.get('password');
   }
+
+
+
+
 }

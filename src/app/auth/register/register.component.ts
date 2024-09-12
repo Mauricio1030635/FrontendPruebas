@@ -23,7 +23,7 @@ export class RegisterComponent {
       name: ['', [Validators.required, Validators.minLength(4)]],
       phoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      role: [{ value: 'Admin', disabled: true }, Validators.required]
+      role: ['Admin', Validators.required]
     });
   }
 
@@ -40,7 +40,6 @@ export class RegisterComponent {
 
     this.isLoading = true;
     const registerData = this.registerForm.value;
-
     this.authService.register(registerData).subscribe(
       (response) => {
         this.isLoading = false;

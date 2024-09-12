@@ -1,0 +1,34 @@
+<div class="main-content">
+    <h1>{{nameUser}} </h1>
+
+
+    <hr>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Completado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let task of tasks">
+                <td>{{ task.id }}</td>
+                <td>{{ task.name }}</td>
+                <td>{{ task.description }}</td>
+                <td>
+                    <input type="checkbox" [checked]="task.completado" (change)="onToggleComplete(task)" />
+                </td>
+                <td>
+                    <button (click)="onDeleteTask(task.id)" class="btn btn-danger">
+                        <i class="lni lni-trash-can"></i>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+
+</div>
