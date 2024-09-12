@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ProfileService } from '../../../Services/profile.service';
 import { TaskService } from '../../../Services/task.service';
-import { TaskDto, UpdateTaskDto } from '../../../Models/ModelTask';
+import { CreateTaskDto, TaskDto, UpdateTaskDto } from '../../../Models/ModelTask';
 import Swal from 'sweetalert2';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+declare var bootstrap: any;
 
 @Component({
   selector: 'app-main',
@@ -13,8 +15,25 @@ export class MainComponent implements OnInit {
   user: any;
   nameUser: string = ""
   UpdateTaskDto!: UpdateTaskDto
+  CreateTaskDto!: CreateTaskDto
+  myForm: FormGroup;
 
-  constructor(private authService: ProfileService, private taskService: TaskService) { }
+
+  constructor(
+    private authService: ProfileService,
+    private taskService: TaskService,
+    private fb: FormBuilder,
+  ) {
+
+    this.myForm = this.fb.group({
+      name: ['', Validators.required],
+      description: ['', Validators.required],
+      completado: [false],
+      userId: ['']
+    });
+
+
+  }
 
   tasks: TaskDto[] = [];
   ngOnInit(): void {
@@ -34,6 +53,34 @@ export class MainComponent implements OnInit {
       }
     );
   }
+
+
+  onSave(): void {
+    if (this.myForm.valid) {
+      console.log(this.myForm.value);
+      this.CreateTaskDto = { ...this.myForm.value, UserId: this.user['id'] };
+
+      this.taskService.createTask(this.CreateTaskDto).subscribe(
+        () => {
+          this.loadTasksByUserId(this.user['id']);
+          Swal.fire('Create Task', 'Create Task!', 'success');
+        },
+        (error) => console.error('Error updating task', error)
+      );
+
+      this.closeModal();
+    }
+  }
+
+
+  closeModal(): void {
+    const modalElement = document.getElementById('exampleModal')!;
+    const modalBootstrap = bootstrap.Modal.getInstance(modalElement);
+    modalBootstrap.hide();
+  }
+
+
+
 
 
   onToggleComplete(task: TaskDto): void {

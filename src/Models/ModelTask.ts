@@ -9,6 +9,7 @@ export interface CreateTaskDto {
     name: string;
     description: string;
     completado: boolean;
+    UserId: string;
 }
 
 export interface UpdateTaskDto {

@@ -8,7 +8,8 @@ import { BoardsComponent } from './boards.component';
 import { ProfileComponent } from './profile/profile.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from '../auth.interceptor';
-
+import { MatDialogModule } from '@angular/material/dialog';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,10 @@ import { AuthInterceptor } from '../auth.interceptor';
   ],
   imports: [
     CommonModule,
-    BoardsRoutingModule
+    BoardsRoutingModule,
+    MatDialogModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   // providers: [
   //   { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }

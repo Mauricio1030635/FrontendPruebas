@@ -3,6 +3,12 @@
 
 
     <hr>
+
+
+    <button type="button" class="m-4 btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Agregar Tarea
+    </button>
+
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -31,4 +37,54 @@
     </table>
 
 
+</div>
+
+
+
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Formulario</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <form [formGroup]="myForm" (ngSubmit)="onSave()">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Nombre</label>
+                        <input type="text" id="name" class="form-control" formControlName="name"
+                            [class.is-invalid]="myForm.get('name')?.invalid && myForm.get('name')?.touched" />
+                        <div class="invalid-feedback"
+                            *ngIf="myForm.get('name')?.invalid && myForm.get('name')?.touched">
+                            El nombre es obligatorio.
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Descripción</label>
+                        <textarea id="description" class="form-control" formControlName="description"
+                            [class.is-invalid]="myForm.get('description')?.invalid && myForm.get('description')?.touched"></textarea>
+                        <div class="invalid-feedback"
+                            *ngIf="myForm.get('description')?.invalid && myForm.get('description')?.touched">
+                            La descripción es obligatoria.
+                        </div>
+                    </div>
+
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" id="completado" class="form-check-input" formControlName="completado"
+                            [class.is-invalid]="myForm.get('completado')?.invalid && myForm.get('completado')?.touched" />
+                        <label for="completado" class="form-check-label">Completado</label>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary" [disabled]="myForm.invalid">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>

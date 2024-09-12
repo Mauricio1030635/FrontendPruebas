@@ -140,3 +140,5 @@ a.sidebar-link:hover {
     transform: rotate(45deg);
     transition: all .2s ease-out;
 }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
